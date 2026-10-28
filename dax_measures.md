@@ -162,7 +162,7 @@ Average daily hours as a share of expected hours (6 h full-time, 4 h part-time).
 ```dax
 Working Hours Coverage =
 VAR _Shift =
-SELECTEDVALUE ( Analysts[Shift], "Full-time" )
+SELECTEDVALUE ( Analysts[Shift], "Full time" )
 VAR _ExpectedHours =
 IF (
     _Shift = "Part time",
@@ -327,10 +327,10 @@ Rejected Tasks Target Met =
 VAR _Actual =
 'Raw Measures'[Total Rejected tasks]
 VAR _Shift =
-SELECTEDVALUE ( Analysts[Shift], "Full-time" )
+SELECTEDVALUE ( Analysts[Shift], "Full time" )
 VAR _AdjustedTarget =
 IF (
-    _Shift = "Part-time",
+    _Shift = "Part time",
     [Rejected Tasks Target] * 4 / 7,
     [Rejected Tasks Target]
 )
@@ -477,7 +477,7 @@ IF (
     BLANK(),
     SWITCH (
         TRUE(),
-        _Rejected = 0, 5,
+        _Rejected <= 2, 5,
         _Rejected <= 5, 4,
         _Rejected <= 10, 3,
         _Rejected <= 15, 2,
@@ -1008,7 +1008,7 @@ ADDCOLUMNS(
     SWITCH(
         _KPI,
         /* Spreading Skills */
-        "Avg Spreads Done Daily",
+        "Spreads Done Daily",
         [Spreads Done Daily],
         "Spreading Accuracy",
         [Spreading Accuracy],

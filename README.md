@@ -18,13 +18,13 @@ Our team's monthly evaluation process previously relied on spreadsheets and CSV 
 
 This report:
 
-- Pulls data from **Google Sheets, Excel and CSV exports** (task logs, quality checks, rejected tasks, processing/acceptance times, team-lead ratings), driven by a `Reporting_Month` parameter that always points to the previous month
+- Pulls data from **Google Sheets, Excel and CSV exports** (task logs, quality checks, rejected tasks, processing/acceptance times, team-lead ratings), combined automatically from monthly files and tabs (one file per month in the `Tasks`, `Rejected` and `Time` folders, one Google Sheet tab per month for team-lead ratings), so history builds up month after month
 - Scores **14 KPIs on a 1–5 scale**, grouped into three sections: **Spreading Skills**, **Organizational** and **Engagement**
 - Uses **level-specific scoring bands** (Junior / Middle / Senior) for productivity and quality metrics
 - Combines scores into a **Final KPI** using a weights table with separate columns for the *Analyst* and *Senior* frameworks
 - **Skips KPIs that don't apply or have no data** and re-scales the remaining weights, so an analyst isn't penalized for a KPI that doesn't exist for their role
 - **Pro-rates targets for part-time analysts** (4/7 of the full-time target) and expected working hours (4 h vs 6 h per day)
-- Filters by month, analyst, level and shift
+- Filters by month (single-select, synced across pages), analyst, level and shift
 
 ## Report pages
 
@@ -86,7 +86,9 @@ Full code in [`dax_measures.md`](dax_measures.md). Highlights:
 
 ## Data transformation (Power Query)
 
-Monthly task exports (Excel) and rejected/time reports (CSV) are loaded using file names built from the `Reporting_Month` parameter. The task log gets analyst names derived from worker emails and timestamps split into date and time columns; quality checks and team-lead ratings come from Google Sheets. Code with sources replaced by placeholders is in [`m_code.md`](m_code.md).
+Each month's files are dropped into a folder and appended automatically on refresh: task exports (Excel, `Tasks` folder), rejected tasks (CSV, `Rejected` folder) and processing/acceptance times (CSV, `Time` folder). The month is read from the file name (e.g. `September_2026.xlsx`), and a `FolderPath` parameter points to the main folder. Team-lead ratings come from a Google Sheet with one tab per month (named `Month_Year`), and quality checks from a second Google Sheet. The task log gets analyst names derived from worker emails and timestamps split into date and time columns. Every table carries a `Month` column, which a synced Month slicer filters through `DateTable`. Code with sources replaced by placeholders is in [`m_code.md`](m_code.md).
+
+**Monthly refresh:** add the new month's files (and the new Google Sheet tab), then click Refresh. No query edits are needed.
 
 ## Tech stack
 
