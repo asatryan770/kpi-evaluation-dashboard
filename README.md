@@ -2,7 +2,6 @@
 
 A Power BI report that scores analysts each month against level-specific targets and combines the results into one weighted **Final KPI** per analyst, plus a team-level view.
 
-> `[In brackets]` = something only you can fill in.
 
 ## Summary
 
@@ -96,4 +95,4 @@ Power BI Desktop · DAX · Power Query (M) · Google Sheets / Excel / CSV
 
 ## Notes on this repo
 
-This is a sanitized version of a report built for work. Analyst names, company branding and data source links are removed or replaced with placeholders. [Confirm you are permitted to share the scoring rules and weights.]
+This is a sanitized version of a report built for work. Analyst names, company branding and data source links are removed or replaced with placeholders.
